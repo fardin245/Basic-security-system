@@ -1,0 +1,634 @@
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 1
+
+
+
+
+
+       MCS-51 Family Macro Assembler   A S E M - 5 1   V 1.3
+       =====================================================
+
+
+
+	Source File:	C:\Users\Asus\Downloads\accesscontrol\New folder\group5_project2.asm.asm
+	Object File:	C:\Users\Asus\Downloads\accesscontrol\New folder\group5_project2.asm.hex
+	List File:	C:\Users\Asus\Downloads\accesscontrol\New folder\group5_project2.asm.lst
+
+
+
+ Line  I  Addr  Code            Source
+
+    1:		N      0000			ORG 00H				;Start program at location 0H
+    2:
+    3:	  0000	75 50 54	USERNAME:	MOV 50H,#'T'			;Store the username
+    4:	  0003	75 51 4F			MOV 51H,#'O'
+    5:	  0006	75 52 4D			MOV 52H,#'M'
+    6:	  0009	75 53 41			MOV 53H,#'A'
+    7:	  000C	75 54 54			MOV 54H,#'T'
+    8:	  000F	75 55 4F			MOV 55H,#'O'
+    9:	  0012	75 56 32			MOV 56H,#'2'
+   10:	  0015	75 57 34			MOV 57H,#'4'
+   11:	  0018	75 58 35			MOV 58H,#'5'
+   12:
+   13:	  001B	75 70 50	PASSWORD:	MOV 70H,#'P'			;Store the password
+   14:	  001E	75 71 4F			MOV 71H,#'O'
+   15:	  0021	75 72 54			MOV 72H,#'T'
+   16:	  0024	75 73 41			MOV 73H,#'A'
+   17:	  0027	75 74 54			MOV 74H,#'T'
+   18:	  002A	75 75 4F			MOV 75H,#'O'
+   19:	  002D	75 76 33			MOV 76H,#'3'
+   20:	  0030	75 77 36			MOV 77H,#'6'
+   21:	  0033	75 78 39			MOV 78H,#'9'
+   22:
+   23:	  0036	7D 00		BEGIN:		MOV R5,#0H			;Set as 0 to take username input. Further explanatio
+				n later.
+   24:	  0038	7E 09				MOV R6,#9H			;Number of characters used in username
+   25:	  003A	7F 09				MOV R7,#9H			;Number of characters used in password
+   26:
+   27:	  003C	51 EF		DISPLAY1:	ACALL DISPLAYRST		;Call subroutine to refresh the display for new mess
+				age
+   28:	  003E	74 45				MOV A,#'E'			;Display the character 'E'
+   29:	  0040	51 E2				ACALL DATAWRT			;Call subroutine for displaying data
+   30:	  0042	71 0E				ACALL DELAY			;Small delay
+   31:	  0044	74 6E				MOV A,#'n'
+   32:	  0046	51 E2				ACALL DATAWRT
+   33:	  0048	71 0E				ACALL DELAY
+   34:	  004A	74 74				MOV A,#'t'
+   35:	  004C	51 E2				ACALL DATAWRT
+   36:	  004E	71 0E				ACALL DELAY
+   37:	  0050	74 65				MOV A,#'e'
+   38:	  0052	51 E2				ACALL DATAWRT
+   39:	  0054	71 0E				ACALL DELAY
+   40:	  0056	74 72				MOV A,#'r'
+   41:	  0058	51 E2				ACALL DATAWRT
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 2
+
+
+
+ Line  I  Addr  Code            Source
+
+   42:	  005A	71 0E				ACALL DELAY
+   43:	  005C	74 20				MOV A,#' '
+   44:	  005E	51 E2				ACALL DATAWRT
+   45:	  0060	71 0E				ACALL DELAY
+   46:	  0062	74 55				MOV A,#'U'
+   47:	  0064	51 E2				ACALL DATAWRT
+   48:	  0066	71 0E				ACALL DELAY
+   49:	  0068	74 73				MOV A,#'s'
+   50:	  006A	51 E2				ACALL DATAWRT
+   51:	  006C	71 0E				ACALL DELAY
+   52:	  006E	74 65				MOV A,#'e'
+   53:	  0070	51 E2				ACALL DATAWRT
+   54:	  0072	71 0E				ACALL DELAY
+   55:	  0074	74 72				MOV A,#'r'
+   56:	  0076	51 E2				ACALL DATAWRT
+   57:	  0078	71 0E				ACALL DELAY
+   58:	  007A	74 6E				MOV A,#'n'
+   59:	  007C	51 E2				ACALL DATAWRT
+   60:	  007E	71 0E				ACALL DELAY
+   61:	  0080	74 61				MOV A,#'a'
+   62:	  0082	51 E2				ACALL DATAWRT
+   63:	  0084	71 0E				ACALL DELAY
+   64:	  0086	74 6D				MOV A,#'m'
+   65:	  0088	51 E2				ACALL DATAWRT
+   66:	  008A	71 0E				ACALL DELAY
+   67:	  008C	74 65				MOV A,#'e'
+   68:	  008E	51 E2				ACALL DATAWRT
+   69:	  0090	71 0E				ACALL DELAY
+   70:	  0092	74 3A				MOV A,#':'
+   71:	  0094	51 E2				ACALL DATAWRT
+   72:	  0096	71 0E				ACALL DELAY
+   73:	  0098	74 C0				MOV A,#0C0H			;Put the display cursor at the start of the second l
+				ine
+   74:	  009A	51 D5				ACALL COMNWRT			;Call subroutine for command
+   75:	  009C	71 0E				ACALL DELAY
+   76:
+   77:	  009E	75 A0 FF	KEYPAD:		MOV P2,#0FFH			;Make P2 as input port
+   78:	  00A1	78 50				MOV R0,#50H			;Beginning of stored username
+   79:	  00A3	79 70				MOV R1,#70H			;Beginning of stored password
+   80:	  00A5	75 80 00	K1:		MOV P0,#0H			;Ground all rows at once
+   81:	  00A8	E5 A0				MOV A,P2			;Read all column values
+   82:	  00AA	54 3F				ANL A,#00111111B		;Mask unused bits
+   83:	  00AC	B4 3F F6			CJNE A,#00111111B,K1		;Check till all keys released
+   84:	  00AF	71 0E		K2:		ACALL DELAY
+   85:	  00B1	E5 A0				MOV A,P2			;See if any key is pressed
+   86:	  00B3	54 3F				ANL A,#00111111B
+   87:	  00B5	B4 3F 02			CJNE A,#00111111B,OVER		;Move forward if key is pressed
+   88:	  00B8	80 F5				SJMP K2				;Repeat loop if key is not pressed
+   89:	  00BA	71 0E		OVER:		ACALL DELAY			;Debounce time for key press
+   90:	  00BC	E5 A0				MOV A,P2			;Check key closure
+   91:	  00BE	54 3F				ANL A,#00111111B
+   92:	  00C0	B4 3F 02			CJNE A,#00111111B,OVER1		;Find row if key is pressed
+   93:	  00C3	80 EA				SJMP K2
+   94:	  00C5	75 80 FE	OVER1:		MOV P0,#11111110B		;Ground row 0
+   95:	  00C8	E5 A0				MOV A,P2
+   96:	  00CA	54 3F				ANL A,#00111111B
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 3
+
+
+
+ Line  I  Addr  Code            Source
+
+   97:	  00CC	B4 3F 35			CJNE A,#00111111B,ROW_0		;If row 0 is the right row, they won't be equal so m
+				ove to next step
+   98:	  00CF	75 80 FD			MOV P0,#11111101B
+   99:	  00D2	E5 A0				MOV A,P2
+  100:	  00D4	54 3F				ANL A,#00111111B
+  101:	  00D6	B4 3F 30			CJNE A,#00111111B,ROW_1
+  102:	  00D9	75 80 FB			MOV P0,#11111011B
+  103:	  00DC	E5 A0				MOV A,P2
+  104:	  00DE	54 3F				ANL A,#00111111B
+  105:	  00E0	B4 3F 2B			CJNE A,#00111111B,ROW_2
+  106:	  00E3	75 80 F7			MOV P0,#11110111B
+  107:	  00E6	E5 A0				MOV A,P2
+  108:	  00E8	54 3F				ANL A,#00111111B
+  109:	  00EA	B4 3F 26			CJNE A,#00111111B,ROW_3
+  110:	  00ED	75 80 EF			MOV P0,#11101111B
+  111:	  00F0	E5 A0				MOV A,P2
+  112:	  00F2	54 3F				ANL A,#00111111B
+  113:	  00F4	B4 3F 21			CJNE A,#00111111B,ROW_4
+  114:	  00F7	75 80 DF			MOV P0,#11011111B
+  115:	  00FA	E5 A0				MOV A,P2
+  116:	  00FC	54 3F				ANL A,#00111111B
+  117:	  00FE	B4 3F 1C			CJNE A,#00111111B,ROW_5
+  118:	  0101	02 00 AF			LJMP K2				;Jump back if there is a false input
+  119:
+  120:	  0104	90 06 00	ROW_0:		MOV DPTR,#KCODE0		;Set DPTR at the start of row 0 character lookup tab
+				le
+  121:	  0107	80 19				SJMP FIND			;Jump to FIND subroutine to find the column again
+  122:	  0109	90 06 06	ROW_1:		MOV DPTR,#KCODE1
+  123:	  010C	80 14				SJMP FIND
+  124:	  010E	90 06 0C	ROW_2:		MOV DPTR,#KCODE2
+  125:	  0111	80 0F				SJMP FIND
+  126:	  0113	90 06 12	ROW_3:		MOV DPTR,#KCODE3
+  127:	  0116	80 0A				SJMP FIND
+  128:	  0118	90 06 18	ROW_4:		MOV DPTR,#KCODE4
+  129:	  011B	80 05				SJMP FIND
+  130:	  011D	90 06 1E	ROW_5:		MOV DPTR,#KCODE5
+  131:	  0120	80 00				SJMP FIND
+  132:
+  133:	  0122	13		FIND:		RRC A				;Check if CY = 0
+  134:	  0123	50 03				JNC MATCH			;Go to the next step to get ASCII code if CY = 0
+  135:	  0125	A3				INC DPTR			;Point to next column address
+  136:	  0126	80 FA				SJMP FIND			;Repeat loop
+  137:
+  138:	  0128	E4		MATCH:		CLR A				;Set A = 0
+  139:	  0129	93				MOVC A,@A+DPTR			;Get the ASCII code from lookup table
+  140:	  012A	BD 00 0D			CJNE R5,#0H,PASS		;If R5 = 0, the username is matched. Otherwise passw
+				ord is matched
+  141:	  012D	86 F0		USER:		MOV B,@R0			;Move the first character of stored username to B
+  142:	  012F	B5 F0 1A			CJNE A,B,SKIP			;Compare pressed key with the stored key. Jump if no
+				t same
+  143:	  0132	08				INC R0				;Go to next stored character
+  144:	  0133	51 E2				ACALL DATAWRT
+  145:	  0135	DE 12				DJNZ R6,REPEAT			;Repeat key pressing and checking loop
+  146:	  0137	02 01 51			LJMP DISPLAY2			;Display the second message
+  147:	  013A	87 F0		PASS:		MOV B,@R1			;Move the first character of stored password to B
+  148:	  013C	B5 F0 0D			CJNE A,B,SKIP
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 4
+
+
+
+ Line  I  Addr  Code            Source
+
+  149:	  013F	09				INC R1
+  150:	  0140	74 2A				MOV A,#'*'			;Show '*' instead of actual password character for s
+				ecurity
+  151:	  0142	51 E2				ACALL DATAWRT
+  152:	  0144	DF 03				DJNZ R7,REPEAT
+  153:	  0146	02 01 B8			LJMP DISPLAY3			;Display the third message
+  154:	  0149	02 00 A5	REPEAT:		LJMP K1				;Check for key press again
+  155:	  014C	51 6A		SKIP:		ACALL ERROR			;Show error message if key doesn't match
+  156:	  014E	02 00 36			LJMP BEGIN			;Start from the very beginning due to wrong username
+				 or password
+  157:
+  158:	  0151	7D 01		DISPLAY2:	MOV R5,#1H			;R5 = 0 for password checking step
+  159:	  0153	51 EF				ACALL DISPLAYRST
+  160:	  0155	74 45				MOV A,#'E'
+  161:	  0157	51 E2				ACALL DATAWRT
+  162:	  0159	71 0E				ACALL DELAY
+  163:	  015B	74 6E				MOV A,#'n'
+  164:	  015D	51 E2				ACALL DATAWRT
+  165:	  015F	71 0E				ACALL DELAY
+  166:	  0161	74 74				MOV A,#'t'
+  167:	  0163	51 E2				ACALL DATAWRT
+  168:	  0165	71 0E				ACALL DELAY
+  169:	  0167	74 65				MOV A,#'e'
+  170:	  0169	51 E2				ACALL DATAWRT
+  171:	  016B	71 0E				ACALL DELAY
+  172:	  016D	74 72				MOV A,#'r'
+  173:	  016F	51 E2				ACALL DATAWRT
+  174:	  0171	71 0E				ACALL DELAY
+  175:	  0173	74 20				MOV A,#' '
+  176:	  0175	51 E2				ACALL DATAWRT
+  177:	  0177	71 0E				ACALL DELAY
+  178:	  0179	74 50				MOV A,#'P'
+  179:	  017B	51 E2				ACALL DATAWRT
+  180:	  017D	71 0E				ACALL DELAY
+  181:	  017F	74 61				MOV A,#'a'
+  182:	  0181	51 E2				ACALL DATAWRT
+  183:	  0183	71 0E				ACALL DELAY
+  184:	  0185	74 73				MOV A,#'s'
+  185:	  0187	51 E2				ACALL DATAWRT
+  186:	  0189	71 0E				ACALL DELAY
+  187:	  018B	74 73				MOV A,#'s'
+  188:	  018D	51 E2				ACALL DATAWRT
+  189:	  018F	71 0E				ACALL DELAY
+  190:	  0191	74 77				MOV A,#'w'
+  191:	  0193	51 E2				ACALL DATAWRT
+  192:	  0195	71 0E				ACALL DELAY
+  193:	  0197	74 6F				MOV A,#'o'
+  194:	  0199	51 E2				ACALL DATAWRT
+  195:	  019B	71 0E				ACALL DELAY
+  196:	  019D	74 72				MOV A,#'r'
+  197:	  019F	51 E2				ACALL DATAWRT
+  198:	  01A1	71 0E				ACALL DELAY
+  199:	  01A3	74 64				MOV A,#'d'
+  200:	  01A5	51 E2				ACALL DATAWRT
+  201:	  01A7	71 0E				ACALL DELAY
+  202:	  01A9	74 3A				MOV A,#':'
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 5
+
+
+
+ Line  I  Addr  Code            Source
+
+  203:	  01AB	51 E2				ACALL DATAWRT
+  204:	  01AD	71 0E				ACALL DELAY
+  205:	  01AF	74 C0				MOV A,#0C0H
+  206:	  01B1	51 D5				ACALL COMNWRT
+  207:	  01B3	71 0E				ACALL DELAY
+  208:	  01B5	02 00 A5			LJMP K1				;Check for key press
+  209:
+  210:	  01B8	51 EF		DISPLAY3:	ACALL DISPLAYRST
+  211:	  01BA	74 43				MOV A,#'C'
+  212:	  01BC	51 E2				ACALL DATAWRT
+  213:	  01BE	71 0E				ACALL DELAY
+  214:	  01C0	74 6F				MOV A,#'o'
+  215:	  01C2	51 E2				ACALL DATAWRT
+  216:	  01C4	71 0E				ACALL DELAY
+  217:	  01C6	74 6E				MOV A,#'n'
+  218:	  01C8	51 E2				ACALL DATAWRT
+  219:	  01CA	71 0E				ACALL DELAY
+  220:	  01CC	74 67				MOV A,#'g'
+  221:	  01CE	51 E2				ACALL DATAWRT
+  222:	  01D0	71 0E				ACALL DELAY
+  223:	  01D2	74 72				MOV A,#'r'
+  224:	  01D4	51 E2				ACALL DATAWRT
+  225:	  01D6	71 0E				ACALL DELAY
+  226:	  01D8	74 61				MOV A,#'a'
+  227:	  01DA	51 E2				ACALL DATAWRT
+  228:	  01DC	71 0E				ACALL DELAY
+  229:	  01DE	74 74				MOV A,#'t'
+  230:	  01E0	51 E2				ACALL DATAWRT
+  231:	  01E2	71 0E				ACALL DELAY
+  232:	  01E4	74 75				MOV A,#'u'
+  233:	  01E6	51 E2				ACALL DATAWRT
+  234:	  01E8	71 0E				ACALL DELAY
+  235:	  01EA	74 6C				MOV A,#'l'
+  236:	  01EC	51 E2				ACALL DATAWRT
+  237:	  01EE	71 0E				ACALL DELAY
+  238:	  01F0	74 61				MOV A,#'a'
+  239:	  01F2	51 E2				ACALL DATAWRT
+  240:	  01F4	71 0E				ACALL DELAY
+  241:	  01F6	74 74				MOV A,#'t'
+  242:	  01F8	51 E2				ACALL DATAWRT
+  243:	  01FA	71 0E				ACALL DELAY
+  244:	  01FC	74 69				MOV A,#'i'
+  245:	  01FE	51 E2				ACALL DATAWRT
+  246:	  0200	71 0E				ACALL DELAY
+  247:	  0202	74 6F				MOV A,#'o'
+  248:	  0204	51 E2				ACALL DATAWRT
+  249:	  0206	71 0E				ACALL DELAY
+  250:	  0208	74 6E				MOV A,#'n'
+  251:	  020A	51 E2				ACALL DATAWRT
+  252:	  020C	71 0E				ACALL DELAY
+  253:	  020E	74 73				MOV A,#'s'
+  254:	  0210	51 E2				ACALL DATAWRT
+  255:	  0212	71 0E				ACALL DELAY
+  256:	  0214	74 21				MOV A,#'!'
+  257:	  0216	51 E2				ACALL DATAWRT
+  258:	  0218	71 0E				ACALL DELAY
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 6
+
+
+
+ Line  I  Addr  Code            Source
+
+  259:	  021A	74 C0				MOV A,#0C0H
+  260:	  021C	51 D5				ACALL COMNWRT
+  261:	  021E	71 0E				ACALL DELAY
+  262:	  0220	74 57				MOV A,#'W'
+  263:	  0222	51 E2				ACALL DATAWRT
+  264:	  0224	71 0E				ACALL DELAY
+  265:	  0226	74 65				MOV A,#'e'
+  266:	  0228	51 E2				ACALL DATAWRT
+  267:	  022A	71 0E				ACALL DELAY
+  268:	  022C	74 6C				MOV A,#'l'
+  269:	  022E	51 E2				ACALL DATAWRT
+  270:	  0230	71 0E				ACALL DELAY
+  271:	  0232	74 63				MOV A,#'c'
+  272:	  0234	51 E2				ACALL DATAWRT
+  273:	  0236	71 0E				ACALL DELAY
+  274:	  0238	74 6F				MOV A,#'o'
+  275:	  023A	51 E2				ACALL DATAWRT
+  276:	  023C	71 0E				ACALL DELAY
+  277:	  023E	74 6D				MOV A,#'m'
+  278:	  0240	51 E2				ACALL DATAWRT
+  279:	  0242	71 0E				ACALL DELAY
+  280:	  0244	74 65				MOV A,#'e'
+  281:	  0246	51 E2				ACALL DATAWRT
+  282:	  0248	71 0E				ACALL DELAY
+  283:	  024A	74 20				MOV A,#' '
+  284:	  024C	51 E2				ACALL DATAWRT
+  285:	  024E	71 0E				ACALL DELAY
+  286:	  0250	74 74				MOV A,#'t'
+  287:	  0252	51 E2				ACALL DATAWRT
+  288:	  0254	71 0E				ACALL DELAY
+  289:	  0256	74 6F				MOV A,#'o'
+  290:	  0258	51 E2				ACALL DATAWRT
+  291:	  025A	71 0E				ACALL DELAY
+  292:	  025C	74 20				MOV A,#' '
+  293:	  025E	51 E2				ACALL DATAWRT
+  294:	  0260	71 0E				ACALL DELAY
+  295:	  0262	74 58				MOV A,#'X'
+  296:	  0264	51 E2				ACALL DATAWRT
+  297:	  0266	71 0E				ACALL DELAY
+  298:
+  299:	  0268	80 FE		AGAIN: 		SJMP AGAIN			;Stop program here and keep displaying the welcome m
+				essage
+  300:
+  301:	  026A	51 EF		ERROR:		ACALL DISPLAYRST		;Error message
+  302:	  026C	74 53				MOV A,#'S'
+  303:	  026E	51 E2				ACALL DATAWRT
+  304:	  0270	71 0E				ACALL DELAY
+  305:	  0272	74 6F				MOV A,#'o'
+  306:	  0274	51 E2				ACALL DATAWRT
+  307:	  0276	71 0E				ACALL DELAY
+  308:	  0278	74 72				MOV A,#'r'
+  309:	  027A	51 E2				ACALL DATAWRT
+  310:	  027C	71 0E				ACALL DELAY
+  311:	  027E	74 72				MOV A,#'r'
+  312:	  0280	51 E2				ACALL DATAWRT
+  313:	  0282	71 0E				ACALL DELAY
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 7
+
+
+
+ Line  I  Addr  Code            Source
+
+  314:	  0284	74 79				MOV A,#'y'
+  315:	  0286	51 E2				ACALL DATAWRT
+  316:	  0288	71 0E				ACALL DELAY
+  317:	  028A	74 21				MOV A,#'!'
+  318:	  028C	51 E2				ACALL DATAWRT
+  319:	  028E	71 0E				ACALL DELAY
+  320:	  0290	74 C0				MOV A,#0C0H
+  321:	  0292	51 D5				ACALL COMNWRT
+  322:	  0294	71 0E				ACALL DELAY
+  323:	  0296	74 54				MOV A,#'T'
+  324:	  0298	51 E2				ACALL DATAWRT
+  325:	  029A	71 0E				ACALL DELAY
+  326:	  029C	74 72				MOV A,#'r'
+  327:	  029E	51 E2				ACALL DATAWRT
+  328:	  02A0	71 0E				ACALL DELAY
+  329:	  02A2	74 79				MOV A,#'y'
+  330:	  02A4	51 E2				ACALL DATAWRT
+  331:	  02A6	71 0E				ACALL DELAY
+  332:	  02A8	74 20				MOV A,#' '
+  333:	  02AA	51 E2				ACALL DATAWRT
+  334:	  02AC	71 0E				ACALL DELAY
+  335:	  02AE	74 41				MOV A,#'A'
+  336:	  02B0	51 E2				ACALL DATAWRT
+  337:	  02B2	71 0E				ACALL DELAY
+  338:	  02B4	74 67				MOV A,#'g'
+  339:	  02B6	51 E2				ACALL DATAWRT
+  340:	  02B8	71 0E				ACALL DELAY
+  341:	  02BA	74 61				MOV A,#'a'
+  342:	  02BC	51 E2				ACALL DATAWRT
+  343:	  02BE	71 0E				ACALL DELAY
+  344:	  02C0	74 69				MOV A,#'i'
+  345:	  02C2	51 E2				ACALL DATAWRT
+  346:	  02C4	71 0E				ACALL DELAY
+  347:	  02C6	74 6E				MOV A,#'n'
+  348:	  02C8	51 E2				ACALL DATAWRT
+  349:	  02CA	71 0E				ACALL DELAY			;Long delay
+  350:	  02CC	71 0E				ACALL DELAY
+  351:	  02CE	71 0E				ACALL DELAY
+  352:	  02D0	71 0E				ACALL DELAY
+  353:	  02D2	71 0E				ACALL DELAY
+  354:	  02D4	22				RET
+  355:
+  356:	  02D5	F5 90		COMNWRT:	MOV P1,A			;Subroutine for giving command information to LCD
+  357:	  02D7	C2 B0				CLR P3.0
+  358:	  02D9	C2 B1				CLR P3.1
+  359:	  02DB	D2 B2				SETB P3.2
+  360:	  02DD	71 0E				ACALL DELAY
+  361:	  02DF	C2 B2				CLR P3.2
+  362:	  02E1	22				RET
+  363:
+  364:	  02E2	F5 90		DATAWRT:	MOV P1,A			;Subroutine for giving data information to LCD
+  365:	  02E4	D2 B0				SETB P3.0
+  366:	  02E6	C2 B1				CLR P3.1
+  367:	  02E8	D2 B2				SETB P3.2
+  368:	  02EA	71 0E				ACALL DELAY
+  369:	  02EC	C2 B2				CLR P3.2
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 8
+
+
+
+ Line  I  Addr  Code            Source
+
+  370:	  02EE	22				RET
+  371:
+  372:	  02EF	74 38		DISPLAYRST:	MOV A,#38H			;Initialize LCD
+  373:	  02F1	51 D5				ACALL COMNWRT
+  374:	  02F3	71 0E				ACALL DELAY
+  375:	  02F5	74 0E				MOV A,#0EH			;Display on, cursor on
+  376:	  02F7	51 D5				ACALL COMNWRT
+  377:	  02F9	71 0E				ACALL DELAY
+  378:	  02FB	74 01				MOV A,#01H			;Clear LCD
+  379:	  02FD	51 D5				ACALL COMNWRT
+  380:	  02FF	71 0E				ACALL DELAY
+  381:	  0301	74 06				MOV A,#06H			;Shift cursor right
+  382:	  0303	51 D5				ACALL COMNWRT
+  383:	  0305	71 0E				ACALL DELAY
+  384:	  0307	74 80				MOV A,#80H			;Put the display cursor at the start of the first li
+				ne
+  385:	  0309	51 D5				ACALL COMNWRT
+  386:	  030B	71 0E				ACALL DELAY
+  387:	  030D	22				RET
+  388:
+  389:	  030E	7B 32		DELAY: 		MOV R3,#50			;Delay subroutine
+  390:	  0310	7C FF		HERE2: 		MOV R4,#255
+  391:	  0312	DC FE		HERE: 		DJNZ R4,HERE
+  392:	  0314	DB FA				DJNZ R3,HERE2
+  393:	  0316	22				RET
+  394:
+  395:		N      0600			ORG 600H			;Location for lookup table
+  396:	  0600	41 42 43 44	KCODE0:		DB 'A','B','C','D','E','F'	;Lookup table for row 0 characters
+	  0604	45 46
+  397:	  0606	47 48 49 4A	KCODE1:		DB 'G','H','I','J','K','L'	;Lookup table for row 1 characters
+	  060A	4B 4C
+  398:	  060C	4D 4E 4F 50	KCODE2:		DB 'M','N','O','P','Q','R'	;Lookup table for row 2 characters
+	  0610	51 52
+  399:	  0612	53 54 55 56	KCODE3:		DB 'S','T','U','V','W','X'	;Lookup table for row 3 characters
+	  0616	57 58
+  400:	  0618	59 5A 30 31	KCODE4:		DB 'Y','Z','0','1','2','3'	;Lookup table for row 4 characters
+	  061C	32 33
+  401:	  061E	34 35 36 37	KCODE5:		DB '4','5','6','7','8','9'	;Lookup table for row 5 characters
+	  0622	38 39
+  402:						END				;End of the entire program
+
+
+
+
+
+                     register banks used:  ---
+
+                     no errors
+
+
+
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 9
+
+
+
+
+
+	       L I S T   O F   S Y M B O L S
+	       =============================
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+??ASEM_51			  NUMBER    8051
+??VERSION			  NUMBER    0130
+AC				  BIT	      D6
+ACC				  DATA	      E0
+AGAIN				  CODE	    0268	 299
+B				  DATA	      F0
+BEGIN				  CODE	    0036	  23
+COMNWRT				  CODE	    02D5	 356
+CY				  BIT	      D7
+DATAWRT				  CODE	    02E2	 364
+DELAY				  CODE	    030E	 389
+DISPLAY1			  CODE	    003C	  27
+DISPLAY2			  CODE	    0151	 158
+DISPLAY3			  CODE	    01B8	 210
+DISPLAYRST			  CODE	    02EF	 372
+DPH				  DATA	      83
+DPL				  DATA	      82
+EA				  BIT	      AF
+ERROR				  CODE	    026A	 301
+ES				  BIT	      AC
+ET0				  BIT	      A9
+ET1				  BIT	      AB
+EX0				  BIT	      A8
+EX1				  BIT	      AA
+EXTI0				  CODE	    0003
+EXTI1				  CODE	    0013
+F0				  BIT	      D5
+FIND				  CODE	    0122	 133
+HERE				  CODE	    0312	 391
+HERE2				  CODE	    0310	 390
+IE				  DATA	      A8
+IE0				  BIT	      89
+IE1				  BIT	      8B
+INT0				  BIT	      B2
+INT1				  BIT	      B3
+IP				  DATA	      B8
+IT0				  BIT	      88
+IT1				  BIT	      8A
+K1				  CODE	    00A5	  80
+K2				  CODE	    00AF	  84
+KCODE0				  CODE	    0600	 396
+KCODE1				  CODE	    0606	 397
+KCODE2				  CODE	    060C	 398
+KCODE3				  CODE	    0612	 399
+KCODE4				  CODE	    0618	 400
+KCODE5				  CODE	    061E	 401
+KEYPAD				  CODE	    009E	  77
+MATCH				  CODE	    0128	 138
+OV				  BIT	      D2
+OVER				  CODE	    00BA	  89
+
+ASEM-51 V1.3                                        Copyright (c) 2002 by W.W. Heinz                                         PAGE 10
+
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+OVER1				  CODE	    00C5	  94
+P				  BIT	      D0
+P0				  DATA	      80
+P1				  DATA	      90
+P2				  DATA	      A0
+P3				  DATA	      B0
+PASS				  CODE	    013A	 147
+PASSWORD			  CODE	    001B	  13
+PCON				  DATA	      87
+PS				  BIT	      BC
+PSW				  DATA	      D0
+PT0				  BIT	      B9
+PT1				  BIT	      BB
+PX0				  BIT	      B8
+PX1				  BIT	      BA
+RB8				  BIT	      9A
+RD				  BIT	      B7
+REN				  BIT	      9C
+REPEAT				  CODE	    0149	 154
+RESET				  CODE	    0000
+RI				  BIT	      98
+ROW_0				  CODE	    0104	 120
+ROW_1				  CODE	    0109	 122
+ROW_2				  CODE	    010E	 124
+ROW_3				  CODE	    0113	 126
+ROW_4				  CODE	    0118	 128
+ROW_5				  CODE	    011D	 130
+RS0				  BIT	      D3
+RS1				  BIT	      D4
+RXD				  BIT	      B0
+SBUF				  DATA	      99
+SCON				  DATA	      98
+SINT				  CODE	    0023
+SKIP				  CODE	    014C	 155
+SM0				  BIT	      9F
+SM1				  BIT	      9E
+SM2				  BIT	      9D
+SP				  DATA	      81
+T0				  BIT	      B4
+T1				  BIT	      B5
+TB8				  BIT	      9B
+TCON				  DATA	      88
+TF0				  BIT	      8D
+TF1				  BIT	      8F
+TH0				  DATA	      8C
+TH1				  DATA	      8D
+TI				  BIT	      99
+TIMER0				  CODE	    000B
+TIMER1				  CODE	    001B
+TL0				  DATA	      8A
+TL1				  DATA	      8B
+TMOD				  DATA	      89
+TR0				  BIT	      8C
+TR1				  BIT	      8E
+TXD				  BIT	      B1
+USER				  CODE	    012D	 141
+
+ASEM-51 V1.3                                        Copyright (c) 2002 by W.W. Heinz                                         PAGE 11
+
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+USERNAME			  CODE	    0000	   3
+WR				  BIT	      B6
